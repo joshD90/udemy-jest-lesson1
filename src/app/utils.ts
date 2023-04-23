@@ -1,3 +1,10 @@
+export class StringUtils {
+  public toUpperCase(arg: string) {
+    if (!arg || arg === "") throw new Error("Invalid argument!");
+    return toUpperCase(arg);
+  }
+}
+
 export const toUpperCase = (string: string) => {
   return string.toUpperCase();
 };
