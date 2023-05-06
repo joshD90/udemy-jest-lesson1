@@ -2,7 +2,7 @@ import { StringUtils, getStringInfo, toUpperCase } from "../app/utils";
 
 describe("utils test suite", () => {
   //intermediate concepts
-  describe.only("StringUtils tests", () => {
+  describe("StringUtils tests", () => {
     let sut: StringUtils;
     let actual: string;
     //setup
@@ -36,7 +36,7 @@ describe("utils test suite", () => {
       expect(() => sut.toUpperCase("")).toThrowError("Invalid argument!");
     });
     //use try catch block
-    it.only("Should throw an error with invalid argument - try catch", (done) => {
+    it("Should throw an error with invalid argument - try catch", (done) => {
       try {
         sut.toUpperCase("");
         done(
@@ -118,7 +118,7 @@ describe("utils test suite", () => {
 });
 
 //we can also test a range of parameters with the each should there be a lot of use cases
-describe.only("toUpperCase examples", () => {
+describe("toUpperCase examples", () => {
   it.each([
     { input: "abc", expected: "ABC" },
     { input: "My-String", expected: "MY-STRING" },
