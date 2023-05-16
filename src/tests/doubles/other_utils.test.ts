@@ -1,7 +1,9 @@
 import {
+  OtherStringUtils,
   calculateComplexity,
   toUpperCaseWithCB,
 } from "../../app/doubles/other_utils";
+import { toUpperCase } from "../../app/utils";
 //STUBS
 describe("Other Utils Test Suite", () => {
   it("Calculates complexity", () => {
@@ -55,7 +57,7 @@ describe("Other Utils Test Suite", () => {
   });
 
   //use the out of the box tracking functionality using jest Mocks
-  describe.only("tracking callbacks with jest mocks", () => {
+  describe("tracking callbacks with jest mocks", () => {
     const callbackMock = jest.fn();
 
     afterEach(() => {
@@ -74,6 +76,43 @@ describe("Other Utils Test Suite", () => {
       expect(actual).toBe("ABC");
       expect(callbackMock).toBeCalledWith("Called Function abc");
       expect(callbackMock).toBeCalledTimes(1);
+    });
+  });
+
+  //Spies - do not change the original functionality in the test.
+  //not directly injected into the SUT
+  //typically used for testing methods within a class rather than functions
+
+  describe.only("OtherStringUtils tests with spies", () => {
+    let sut: OtherStringUtils;
+
+    beforeEach(() => {
+      sut = new OtherStringUtils();
+    });
+
+    test("Use a spy to track calls", () => {
+      const toUpperCaseSpy = jest.spyOn(sut, "toUpperCase");
+      sut.toUpperCase("asa");
+
+      expect(toUpperCaseSpy).toBeCalledWith("asa");
+    });
+    //we can use a spy to also check in on what other modules are doing
+    //in this we can check that console.log is being called
+    test("Use a spy to track calls to other module", () => {
+      const consoleLogSpy = jest.spyOn(console, "log");
+      sut.logString("abc");
+
+      expect(consoleLogSpy).toBeCalledWith("abc");
+    });
+
+    //we can use a spy to replace the implementation of a method aka if it calls an external service and we dont want our test to do that
+
+    test("use a spy to replace the implementation of a method", () => {
+      //we also can test private methods however this is not best practice and shows that there is a codesmell - little bit of a hack
+      jest.spyOn(sut as any, "callExternalService").mockImplementation(() => {
+        console.log("calling mocked implementation");
+      });
+      (sut as any).callExternalService();
     });
   });
 });
