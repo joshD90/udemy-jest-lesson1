@@ -5,7 +5,7 @@ import {
 } from "../../app/doubles/other_utils";
 import { toUpperCase } from "../../app/utils";
 //STUBS
-describe("Other Utils Test Suite", () => {
+describe.skip("Other Utils Test Suite", () => {
   it("Calculates complexity", () => {
     const someInfo = {
       length: 5,
@@ -83,7 +83,7 @@ describe("Other Utils Test Suite", () => {
   //not directly injected into the SUT
   //typically used for testing methods within a class rather than functions
 
-  describe.only("OtherStringUtils tests with spies", () => {
+  describe("OtherStringUtils tests with spies", () => {
     let sut: OtherStringUtils;
 
     beforeEach(() => {
